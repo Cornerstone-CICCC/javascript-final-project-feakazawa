@@ -16,7 +16,7 @@
 3. Test each exercise individually by running:
 
    ```bash
-   npm test -- src/ex01.js
+   npm test -- tests/ex01.test.js
    ```
 
    You can also test ALL exercises at once:

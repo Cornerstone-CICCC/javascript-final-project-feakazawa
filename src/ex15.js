@@ -4,18 +4,40 @@
  * @returns {string}
  */
 function findLongestCommonPrefix(strings) {
-  if (strings.length === 0) return '';
+  if (!strings) throw new Error("Array cannot be undefined");
 
-  const firstString = strings[0];
-  const secondString = strings[1] ?? firstString;
-  let prefix = '';
+  if (!Array.isArray(strings)) throw new Error("Argument must be an array");
 
-  for (let index = 0; index < firstString.length; index += 1) {
-    if (firstString[index] !== secondString[index]) break;
-    prefix += firstString[index];
+  const notString = strings.find((word) => typeof word !== "string");
+  if (notString) throw new Error("Array can only contain strings");
+
+  if (strings.length === 0) return "";
+
+  if (strings.length === 1) return "alone";
+
+  let prefix = "";
+  let prefixArr = [];
+
+  const WordLen = strings.map((word) => word.length);
+  const minWordLen = Math.min(...WordLen); //max of common prefix (ex: the whole word is a common prefix)
+
+  for (let i = 0; i < strings.length - 1; i++) {
+    let firstWord = strings[i];
+    let secondWord = strings[i + 1];
+
+    for (let j = 0; j < minWordLen; j++) {
+      if (firstWord[j] !== secondWord[j]) break;
+      prefix += firstWord[j];
+    }
+    prefixArr.push(prefix); //all common prefix between word comparison
+    prefix = "";
   }
 
-  return prefix;
+  const lenPrefixArr = prefixArr.map((word) => word.length);
+  const finalPrefix =
+    prefixArr[lenPrefixArr.indexOf(Math.min(...lenPrefixArr))];
+
+  return finalPrefix;
 }
 
 module.exports = findLongestCommonPrefix;

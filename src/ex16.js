@@ -86,6 +86,13 @@ function checkBalancedBrackets(brackets) {
   )
     return false;
 
+  if (
+    (openParIdx === 0 && closeParIdx === 2) ||
+    (openSqrIdx === 0 && closeSqrIdx === 2) ||
+    (openCurlIdx === 0 && closeCurlIdx === 2)
+  )
+    return false;
+
   remainderBrackets =
     openPar + closePar + openSquare + closeSquare + openCurly + closeCurly;
 
